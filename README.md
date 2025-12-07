@@ -6,9 +6,8 @@ A custom Home Assistant integration that fetches and displays real-time Taipei b
 
 - 🚌 Fetch real-time bus stop data from Taipei's public transport API
 - ⚙️ Easy configuration through Home Assistant UI
-- 📊 Custom Lovelace card for beautiful dashboard display
 - 🔄 Automatic updates every 30 seconds
-- 📱 Responsive design that works on mobile and desktop
+- ⏱️ Displays bus arrival time in minutes
 
 ## Installation
 
@@ -56,11 +55,11 @@ Where:
 
 The sensor provides the following data:
 
-- **state**: Arrival time in seconds (or "unavailable" if no arrival data)
-- **unit_of_measurement**: seconds (s)
+- **state**: Arrival time in minutes (or "unavailable" if no arrival data)
+- **unit_of_measurement**: minutes (min)
 
 ### Attributes:
-- **arrival_time_seconds**: Arrival time in seconds (null if unavailable or -1)
+- **arrival_time_seconds**: Original arrival time in seconds from API (null if unavailable or -1)
 - **update_time**: Timestamp of the last API update (format: "YYYY-MM-DD HH:MM:SS")
 - **stop_id**: Bus stop identifier
 - **url**: The configured API URL
