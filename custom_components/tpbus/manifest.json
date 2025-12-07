@@ -1,7 +1,7 @@
 {
   "domain": "tpbus",
   "name": "Taipei Bus Stop Monitor",
-  "codeowners": ["@tpbus"],
+  "codeowners": ["@nono-liang"],
   "config_flow": true,
   "documentation": "https://github.com/nono-liang/tpbus",
   "iot_class": "cloud_polling",
