@@ -60,27 +60,27 @@ class TPBusCard extends HTMLElement {
           font-size: 12px;
           text-align: center;
         }
-        .status-badge {
-          display: inline-block;
-          padding: 4px 12px;
-          border-radius: 12px;
-          background-color: var(--primary-color);
-          color: white;
-          font-size: 12px;
-          font-weight: 500;
-        }
         .arrival-time {
           font-size: 32px;
           font-weight: bold;
-        .update-time {
-          margin-top: 16px;
-          padding-top: 8px;
-          border-top: 1px solid var(--divider-color);
-          color: var(--secondary-text-color);
-          font-size: 12px;
           text-align: center;
+          padding: 16px 0;
+          color: var(--primary-color);
         }
-        .arrival-time {
+        .unavailable {
+          color: var(--error-color);
+        }
+      </style>
+      <ha-card>
+        <div class="card-content bus-card">
+          <div class="header">
+            <ha-icon icon="mdi:bus-stop"></ha-icon>
+            <div class="title">${this.config.title || 'Bus Stop'}</div>
+          </div>
+          
+          <div class="arrival-time ${!isAvailable ? 'unavailable' : ''}">
+            ${isAvailable ? this._formatArrivalTime(arrivalTime) : 'N/A'}
+          </div>
           
           ${timeAgo ? `
             <div class="update-time">
@@ -113,8 +113,6 @@ class TPBusCard extends HTMLElement {
     return `${min.toFixed(1)} min`;
   }
 
-customElements.define('tpbus-card', TPBusCard);
-
   _getTimeAgo(updateTimeStr) {
     try {
       // Parse format like "2025-12-07 10:17:49"
@@ -134,3 +132,22 @@ customElements.define('tpbus-card', TPBusCard);
       return updateTimeStr;
     }
   }
+
+  static getConfigElement() {
+    return document.createElement('tpbus-card-editor');
+  }
+
+  static getStubConfig() {
+    return { entity: '' };
+  }
+}
+
+customElements.define('tpbus-card', TPBusCard);
+
+window.customCards = window.customCards || [];
+window.customCards.push({
+  type: 'tpbus-card',
+  name: 'Taipei Bus Card',
+  description: 'Display Taipei bus stop information',
+  preview: true,
+});

@@ -25,8 +25,7 @@ A custom Home Assistant integration that fetches and displays real-time Taipei b
 ### Manual Installation
 
 1. Copy the `custom_components/tpbus` directory to your Home Assistant's `custom_components` directory
-2. Copy the `www/tpbus-card.js` file to your Home Assistant's `www` directory
-3. Restart Home Assistant
+2. Restart Home Assistant (the `tpbus-card.js` file will be automatically copied to your `www` directory on first setup)
 
 ## Configuration
 
@@ -41,8 +40,11 @@ A custom Home Assistant integration that fetches and displays real-time Taipei b
      - Example: `https://pda5284.gov.taipei/MQS/StopDyna?stopid=212756`
 
 ### Add Dashboard Card
+### Add Dashboard Card
 
-1. First, register the custom card:
+**Note:** The custom card (`tpbus-card.js`) is automatically copied to your `www` directory when you set up the integration for the first time.
+
+1. Register the custom card:
    - Go to **Settings** → **Dashboards** → **Resources**
    - Click **+ Add Resource**
    - URL: `/local/tpbus-card.js`
@@ -50,7 +52,6 @@ A custom Home Assistant integration that fetches and displays real-time Taipei b
    - Click **Create**
 
 2. Add the card to your dashboard:
-   - Edit your dashboard
    - Click **+ Add Card**
    - Scroll down and select **Custom: Taipei Bus Card**
    - Or manually add with YAML:
