@@ -55,15 +55,13 @@ type: entities
 title: Bus Stop Info
 entities:
   - entity: sensor.taipei_bus_stop
-    name: Main Street Stop
-    secondary_info: last-updated
-    attribute: route_name
+    name: Arrival Time
   - type: attribute
     entity: sensor.taipei_bus_stop
     attribute: stop_id
     name: Stop ID
   - type: attribute
     entity: sensor.taipei_bus_stop
-    attribute: vehicle_count
-    name: Vehicles
+    attribute: update_time
+    name: API Update Time
 ```

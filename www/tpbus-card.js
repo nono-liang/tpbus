@@ -104,7 +104,7 @@ class TPBusCard extends HTMLElement {
         <div class="card-content bus-card">
           <div class="header">
             <ha-icon icon="mdi:bus-stop"></ha-icon>
-            <div class="title">${this.config.title || attributes.route_name || 'Bus Stop'}</div>
+            <div class="title">${this.config.title || 'Bus Stop'}</div>
           </div>
           
           <div class="arrival-time ${!isAvailable ? 'unavailable' : ''}">
