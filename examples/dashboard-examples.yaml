@@ -1,0 +1,69 @@
+# Lovelace Dashboard Examples
+
+## Basic Card
+
+```yaml
+type: custom:tpbus-card
+entity: sensor.taipei_bus_stop
+title: Main Street Bus Stop
+```
+
+## Multiple Bus Stops
+
+```yaml
+type: vertical-stack
+cards:
+  - type: custom:tpbus-card
+    entity: sensor.bus_stop_1
+    title: Station A
+  
+  - type: custom:tpbus-card
+    entity: sensor.bus_stop_2
+    title: Station B
+```
+
+## Grid Layout
+
+```yaml
+type: grid
+columns: 2
+square: false
+cards:
+  - type: custom:tpbus-card
+    entity: sensor.bus_stop_north
+    title: Northbound
+  
+  - type: custom:tpbus-card
+    entity: sensor.bus_stop_south
+    title: Southbound
+  
+  - type: custom:tpbus-card
+    entity: sensor.bus_stop_east
+    title: Eastbound
+  
+  - type: custom:tpbus-card
+    entity: sensor.bus_stop_west
+    title: Westbound
+```
+
+## With Standard Entity Card (Alternative)
+
+If you prefer the standard Home Assistant entity card:
+
+```yaml
+type: entities
+title: Bus Stop Info
+entities:
+  - entity: sensor.taipei_bus_stop
+    name: Main Street Stop
+    secondary_info: last-updated
+    attribute: route_name
+  - type: attribute
+    entity: sensor.taipei_bus_stop
+    attribute: stop_id
+    name: Stop ID
+  - type: attribute
+    entity: sensor.taipei_bus_stop
+    attribute: vehicle_count
+    name: Vehicles
+```

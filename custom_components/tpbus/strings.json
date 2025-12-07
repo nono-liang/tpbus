@@ -1,0 +1,22 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Taipei Bus Stop Monitor",
+        "description": "Configure your Taipei Bus stop monitoring",
+        "data": {
+          "name": "Name",
+          "url": "API URL"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Failed to connect to the API",
+      "invalid_data": "Invalid data received from API",
+      "unknown": "Unexpected error occurred"
+    },
+    "abort": {
+      "already_configured": "Device is already configured"
+    }
+  }
+}
