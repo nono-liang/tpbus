@@ -25,7 +25,7 @@ A custom Home Assistant integration that fetches and displays real-time Taipei b
 ### Manual Installation
 
 1. Copy the `custom_components/tpbus` directory to your Home Assistant's `custom_components` directory
-2. Restart Home Assistant (the `tpbus-card.js` file will be automatically copied to your `www` directory on first setup)
+2. Restart Home Assistant
 
 ## Configuration
 
@@ -38,29 +38,6 @@ A custom Home Assistant integration that fetches and displays real-time Taipei b
    - **Name**: A friendly name for this bus stop (e.g., "Main Street Stop")
    - **API URL**: The base URL to the bus stop API (nocache parameter will be added automatically)
      - Example: `https://pda5284.gov.taipei/MQS/StopDyna?stopid=212756`
-
-### Add Dashboard Card
-### Add Dashboard Card
-
-**Note:** The custom card (`tpbus-card.js`) is automatically copied to your `www` directory when you set up the integration for the first time.
-
-1. Register the custom card:
-   - Go to **Settings** → **Dashboards** → **Resources**
-   - Click **+ Add Resource**
-   - URL: `/local/tpbus-card.js`
-   - Resource type: **JavaScript Module**
-   - Click **Create**
-
-2. Add the card to your dashboard:
-   - Click **+ Add Card**
-   - Scroll down and select **Custom: Taipei Bus Card**
-   - Or manually add with YAML:
-
-```yaml
-type: custom:tpbus-card
-entity: sensor.taipei_bus_stop
-title: Main Street Bus Stop
-```
 
 ## URL Format
 
@@ -89,29 +66,9 @@ The sensor provides the following data:
 - **url**: The configured API URL
 - **raw_data**: Complete raw data from API (n1 field)
 
-## Dashboard Card
+## Dashboard Display
 
-The custom Lovelace card displays:
-- Bus stop name with bus stop icon
-- Large, prominent arrival time countdown (formatted as "Xm Ys" or "Xs")
-- Human-readable update time (e.g., "Updated 2 minutes ago")
-- Shows "N/A" in red when arrival information is unavailable
-
-## Example Screenshot
-
-The card will look like this on your dashboard:
-
-```
-┌─────────────────────────────┐
-│ 🚌 Main Street Bus Stop     │
-├─────────────────────────────┤
-│                             │
-│          3m 45s             │
-│                             │
-├─────────────────────────────┤
-│   Updated 2 minutes ago     │
-└─────────────────────────────┘
-```
+You can display the sensor data using standard Home Assistant entity cards. The sensor state shows the arrival time in minutes, and additional information is available in the attributes.
 
 ## Troubleshooting
 
@@ -120,12 +77,6 @@ The card will look like this on your dashboard:
 1. Make sure you copied the files to the correct directories
 2. Restart Home Assistant
 3. Clear your browser cache
-
-### Card not rendering
-
-1. Verify the resource is added in **Settings** → **Dashboards** → **Resources**
-2. Clear browser cache (Ctrl+F5)
-3. Check browser console for errors (F12)
 
 ### No data or "Unknown" state
 
@@ -139,16 +90,14 @@ The card will look like this on your dashboard:
 
 ```
 tpbus/
-├── custom_components/
-│   └── tpbus/
-│       ├── __init__.py
-│       ├── manifest.json
-│       ├── const.py
-│       ├── sensor.py
-│       ├── config_flow.py
-│       └── strings.json
-└── www/
-    └── tpbus-card.js
+└── custom_components/
+    └── tpbus/
+        ├── __init__.py
+        ├── manifest.json
+        ├── const.py
+        ├── sensor.py
+        ├── config_flow.py
+        └── strings.json
 ```
 
 ### Logs

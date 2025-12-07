@@ -3,8 +3,6 @@ from __future__ import annotations
 
 import logging
 import time
-import os
-import shutil
 from datetime import timedelta
 from urllib.parse import urlparse, parse_qs, urlencode, urlunparse
 
@@ -21,19 +19,6 @@ DOMAIN = "tpbus"
 
 SCAN_INTERVAL = timedelta(seconds=30)
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
-    """Set up Taipei Bus from a config entry."""
-    # Copy the frontend card to www directory if it doesn't exist
-    www_dir = hass.config.path("www")
-    card_source = os.path.join(os.path.dirname(__file__), "www", "tpbus-card.js")
-    card_dest = os.path.join(www_dir, "tpbus-card.js")
-    
-    if os.path.exists(card_source):
-        os.makedirs(www_dir, exist_ok=True)
-        if not os.path.exists(card_dest):
-            await hass.async_add_executor_job(shutil.copy2, card_source, card_dest)
-            _LOGGER.info("Copied tpbus-card.js to www directory")
-    
-    base_url = entry.data["url"]: HomeAssistant, entry: ConfigEntry) -> bool:
     """Set up Taipei Bus from a config entry."""
     base_url = entry.data["url"]
     
