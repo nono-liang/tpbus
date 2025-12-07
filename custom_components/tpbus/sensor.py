@@ -47,14 +47,16 @@ class TPBusStopSensor(CoordinatorEntity, SensorEntity):
 
     @property
     def state(self) -> str | None:
-        """Return the state of the sensor (arrival time in seconds)."""
+        """Return the state of the sensor (arrival time in minutes)."""
         if self.coordinator.data and "n1" in self.coordinator.data:
             try:
                 n1_parts = self.coordinator.data["n1"].split(",")
                 if len(n1_parts) >= 8:
                     arrival_time = n1_parts[7]
                     if arrival_time and arrival_time != "-1":
-                        return arrival_time
+                        # Convert seconds to minutes
+                        minutes = round(int(arrival_time) / 60, 1)
+                        return str(minutes)
             except Exception as e:
                 _LOGGER.warning("Error parsing arrival time: %s", e)
         return "unavailable"
@@ -93,4 +95,4 @@ class TPBusStopSensor(CoordinatorEntity, SensorEntity):
     @property
     def unit_of_measurement(self) -> str:
         """Return the unit of measurement."""
-        return "s"
+        return "min"

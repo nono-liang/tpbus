@@ -52,26 +52,6 @@ class TPBusCard extends HTMLElement {
           font-weight: 500;
           color: var(--primary-text-color);
         }
-        .info-row {
-          display: flex;
-          justify-content: space-between;
-          padding: 8px 0;
-          border-bottom: 1px solid var(--divider-color);
-        }
-        .info-row:last-child {
-          border-bottom: none;
-        }
-        .label {
-          color: var(--secondary-text-color);
-          font-weight: 500;
-        }
-        .value {
-          color: var(--primary-text-color);
-          text-align: right;
-          max-width: 60%;
-          overflow: hidden;
-          text-overflow: ellipsis;
-        }
         .update-time {
           margin-top: 16px;
           padding-top: 8px;
@@ -92,24 +72,15 @@ class TPBusCard extends HTMLElement {
         .arrival-time {
           font-size: 32px;
           font-weight: bold;
+        .update-time {
+          margin-top: 16px;
+          padding-top: 8px;
+          border-top: 1px solid var(--divider-color);
+          color: var(--secondary-text-color);
+          font-size: 12px;
           text-align: center;
-          padding: 16px 0;
-          color: var(--primary-color);
         }
-        .unavailable {
-          color: var(--error-color);
-        }
-      </style>
-      <ha-card>
-        <div class="card-content bus-card">
-          <div class="header">
-            <ha-icon icon="mdi:bus-stop"></ha-icon>
-            <div class="title">${this.config.title || 'Bus Stop'}</div>
-          </div>
-          
-          <div class="arrival-time ${!isAvailable ? 'unavailable' : ''}">
-            ${isAvailable ? this._formatArrivalTime(arrivalTime) : 'N/A'}
-          </div>
+        .arrival-time {
           
           ${timeAgo ? `
             <div class="update-time">
@@ -121,45 +92,28 @@ class TPBusCard extends HTMLElement {
     `;
   }
 
-  _getStatusText(status) {
-    const statusMap = {
-      '0': 'Inactive',
-      '1': 'Active',
-      '2': 'Approaching',
-    };
-    return statusMap[status] || `Status ${status}`;
-  }
-
   getCardSize() {
     return 2;
   }
 
-  _formatArrivalTime(seconds) {
-    const sec = parseInt(seconds);
-    if (isNaN(sec)) return seconds + 's';
+  _formatArrivalTime(minutes) {
+    const min = parseFloat(minutes);
+    if (isNaN(min)) return minutes + ' min';
     
-    const minutes = Math.floor(sec / 60);
-    const remainingSeconds = sec % 60;
-    
-    if (minutes > 0) {
-      return `${minutes}m ${remainingSeconds}s`;
+    // If less than 1 minute, show in seconds
+    if (min < 1) {
+      const seconds = Math.round(min * 60);
+      return `${seconds}s`;
     }
-    return `${sec}s`;
+    
+    // Show minutes with 1 decimal if it has decimals, otherwise as integer
+    if (min % 1 === 0) {
+      return `${Math.round(min)} min`;
+    }
+    return `${min.toFixed(1)} min`;
   }
 
 customElements.define('tpbus-card', TPBusCard);
-  _formatArrivalTime(seconds) {
-    const sec = parseInt(seconds);
-    if (isNaN(sec)) return seconds + 's';
-    
-    const minutes = Math.floor(sec / 60);
-    const remainingSeconds = sec % 60;
-    
-    if (minutes > 0) {
-      return `${minutes}m ${remainingSeconds}s`;
-    }
-    return `${sec}s`;
-  }
 
   _getTimeAgo(updateTimeStr) {
     try {
