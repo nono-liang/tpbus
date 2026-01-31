@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import logging
+import ssl
 import time
 from datetime import timedelta
 from urllib.parse import urlparse, parse_qs, urlencode, urlunparse
@@ -34,7 +35,13 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
         """Fetch data from API."""
         try:
             url = get_url_with_nocache(base_url)
-            async with aiohttp.ClientSession() as session:
+            # Create SSL context that handles non-standard certificates
+            ssl_context = ssl.create_default_context()
+            ssl_context.check_hostname = False
+            ssl_context.verify_mode = ssl.CERT_NONE
+
+            connector = aiohttp.TCPConnector(ssl=ssl_context)
+            async with aiohttp.ClientSession(connector=connector) as session:
                 async with session.get(url, timeout=aiohttp.ClientTimeout(total=10)) as response:
                     if response.status != 200:
                         raise UpdateFailed(f"Error fetching data: {response.status}")
