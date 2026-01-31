@@ -95,4 +95,4 @@ class TPBusStopSensor(CoordinatorEntity, SensorEntity):
     @property
     def unit_of_measurement(self) -> str:
         """Return the unit of measurement."""
-        return "min"
+        return "分鐘"
